@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/justin/Projects/cpp/boost_tutorial/lambda/main.cpp
+boost/lambda/lambda.hpp
+-
+iostream
+-
+iterator
+-
+algorithm
+-
+

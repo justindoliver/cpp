@@ -1,0 +1,5 @@
+cmake_minimum_required (VERSION 2.6)
+project (Lambda_Tutorial)
+add_executable(Lambda_Tutorial main.cpp)
+set(Lambda_Tutorial_VERSION_MAJOR 1)
+set(Lambda_Tutorial_VERSION_MINOR 0 )
