@@ -1,0 +1,6 @@
+cmake_minimum_required (VERSION 2.6)
+project (MultiIndex_Tutorial)
+add_executable(MultiIndex_Tutorial main.cpp)
+include_directories (/home/justin/Projects/cpp/boost_tutorial/multi-index)
+set(MultiIndex_Tutorial_VERSION_MAJOR 1)
+set(MultiIndex_Tutorial_VERSION_MINOR 0 )
