@@ -35,6 +35,7 @@ public:
   void printByname();
 
   bool add( const Employee& e);
+  bool clear();
 
 private:
 
@@ -45,6 +46,12 @@ private:
 bool EmployeeContainer::add( const Employee& e )
 {
   d_EmployeeContainer.insert(e);
+}
+
+bool EmployeeContainer::clear()
+{
+  d_EmployeeContainer.clear();
+  return true;
 }
 
 void EmployeeContainer::printByname()

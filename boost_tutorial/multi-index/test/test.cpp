@@ -2,11 +2,32 @@
 #include "container.h"
 #include "gtest/gtest.h"
 
-TEST(ContainerTest, Construction) {
-  
-  EmployeeContainer ec;
+class ContainerTest : public testing::Test {
+public:
+	ContainerTest() : d_e1(1, "Zach"), d_e2(2,"Jed"), d_e3(3, "Alex") {}
+protected:
+	virtual void SetUp() {
+		
+		d_ec.add(d_e1);
+		d_ec.add(d_e2);
+		d_ec.add(d_e3);
+	}
 
-  EXPECT_EQ(1, 1);
+	virtual void TearDown() {
+		d_ec.clear();
+	}
+
+	EmployeeContainer d_ec;
+	Employee d_e1;
+	Employee d_e2;
+	Employee d_e3;
+
+};
+
+TEST_F(ContainerTest, Construction) {
+  
+	d_ec.printByname();
+  	EXPECT_EQ(1, 1);
 }
 
 
