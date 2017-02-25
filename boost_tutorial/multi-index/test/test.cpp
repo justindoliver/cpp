@@ -1,10 +1,15 @@
 
 #include "container.h"
 #include "gtest/gtest.h"
+#include "gmock/gmock.h"
+
+#include "mocks/dependency_mock.h"
+
+using ::testing::Return;
 
 class ContainerTest : public testing::Test {
 public:
-	ContainerTest() : d_e1(1, "Zach"), d_e2(2,"Jed"), d_e3(3, "Alex") {}
+	ContainerTest() : d_ec( &d_mockDependency ), d_e1(1, "Zach"), d_e2(2,"Jed"), d_e3(3, "Alex") {}
 protected:
 	virtual void SetUp() {
 		
@@ -17,6 +22,8 @@ protected:
 		d_ec.clear();
 	}
 
+
+    MockDependency d_mockDependency;
 	EmployeeContainer d_ec;
 	Employee d_e1;
 	Employee d_e2;
@@ -24,22 +31,52 @@ protected:
 
 };
 
-TEST_F(ContainerTest, Construction) {
+TEST_F(ContainerTest, printByName) {
   
 	d_ec.printByname();
   	EXPECT_EQ(1, 1);
 }
 
 
-// Step 3. Call RUN_ALL_TESTS() in main().
-//
-// We do this by linking in src/gtest_main.cc file, which consists of
-// a main() function which calls RUN_ALL_TESTS() for us.
-//
-// This runs all the tests you've defined, prints the result, and
-// returns 0 if successful, or 1 otherwise.
-//
-// Did you notice that we didn't register the tests?  The
-// RUN_ALL_TESTS() macro magically knows about all the tests we
-// defined.  Isn't this convenient?
+TEST_F( ContainerTest, add )
+{
+    EXPECT_CALL( d_mockDependency, doTheThing(0) ).Times(::testing::Exactly(1));
+
+    Employee e0 (0, "Beth");
+    EXPECT_TRUE( d_ec.add( e0 ) );
+}
+
+TEST_F( ContainerTest, addDuplicate )
+{
+    EXPECT_CALL( d_mockDependency, doTheThing(0) ).Times(::testing::Exactly(1) );
+    
+    EXPECT_FALSE( d_ec.add( d_e1 ) );
+}
+
+TEST_F(ContainerTest, printById) {
+  
+  d_ec.printById();
+    EXPECT_EQ(1, 1);
+}
+
+
+TEST_F(ContainerTest, printByname) {
+  
+  EXPECT_CALL( d_mockDependency, doTheOtherThing( ::testing::_, ::testing::_ ) ).Times(::testing::AtLeast(2) );
+  d_ec.printByname();
+    EXPECT_EQ(1, 1);
+}
+
+TEST_F(ContainerTest, findName ) {
+  
+  EXPECT_CALL( d_mockDependency, doTheSuperThing( ::testing::StrEq("theArgument")))
+  .Times(::testing::Exactly(2))
+  .WillOnce(Return(1));
+
+  Employee e;
+  EXPECT_TRUE( d_ec.findByName( "Zach", e ) );
+  EXPECT_EQ( "Zach", e.name );
+  EXPECT_FALSE( d_ec.findByName( "Bob", e ) );
+}
+
 

@@ -7,6 +7,7 @@ struct Employee
   std::string name;
 
   Employee(int id,const std::string& name):id(id),name(name){}
+  Employee() {}
 
   bool operator<(const Employee& e)const { return id < e.id; }
 };
